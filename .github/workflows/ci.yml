@@ -6,22 +6,32 @@ on:
       - main
 
 jobs:
-  test:
+  test-and-build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download repository
+
+      - name: Checkout repository
         uses: actions/checkout@v4
+
 
       - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install pytest
 
+
       - name: Run tests
         run: pytest
+
+
+      - name: Build Docker image
+        run: |
+          docker build -t flask-ci-project .
