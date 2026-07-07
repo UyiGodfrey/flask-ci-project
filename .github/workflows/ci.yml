@@ -29,8 +29,14 @@ jobs:
 
 
       - name: Run tests
-        run: pytest
+        run: pytest --html=test-report.html
+    
 
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+         name: pytest-report
+         path: test-report.html
 
       - name: Build Docker image
         run: |
